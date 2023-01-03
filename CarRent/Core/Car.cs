@@ -4,13 +4,13 @@ namespace CarRent.Core
 {
     public class Car
     {
-        public Category Category { get; set; }
+        public ECategory CategoryName { get; set; }
         public string Name { get; set; }
         public EStatus Status { get; set; }
 
-        public Car(Category _category, string _name, EStatus _status)
-        {
-            Category = _category;
+        public Car(ECategory _category, string _name, EStatus _status)
+        {  
+            CategoryName = _category;
             Name = _name;
             Status = _status;
         }
