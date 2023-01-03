@@ -1,6 +1,6 @@
 ﻿using CarRent.Enum;
 
-namespace CarRent.Core
+namespace CarRent.Model
 {
     public class Car
     {
@@ -9,7 +9,7 @@ namespace CarRent.Core
         public EStatus Status { get; set; }
 
         public Car(ECategory _category, string _name, EStatus _status)
-        {  
+        {
             CategoryName = _category;
             Name = _name;
             Status = _status;
