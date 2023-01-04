@@ -4,15 +4,15 @@ namespace CarRent.Model
 {
     public class Car
     {
-        public ECategory CategoryName { get; set; }
+        public ECategory Category { get; set; }
         public string Name { get; set; }
         public EStatus Status { get; set; }
 
-        public Car(ECategory _category, string _name, EStatus _status)
+        public Car(ECategory category, string name, EStatus status)
         {
-            CategoryName = _category;
-            Name = _name;
-            Status = _status;
+            this.Category = category;
+            this.Name = name;
+            this.Status = status;
         }
     }
 }
