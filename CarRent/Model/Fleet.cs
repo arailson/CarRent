@@ -8,16 +8,18 @@ namespace CarRent.Model
         public List<CarRentModel> CarRentModelList { get; set; }
         public Fleet()
         {
-            var compass = new Car(Enum.ECategory.Suv, "Compass", Enum.EStatus.DISPONIVEL);
-            var kicks = new Car(Enum.ECategory.Suv, "Kicks", Enum.EStatus.DISPONIVEL);
-            var azera = new Car(Enum.ECategory.Sedan, "Azera", Enum.EStatus.DISPONIVEL);
-            var duster = new Car(Enum.ECategory.Suv, "Duster", Enum.EStatus.DISPONIVEL);
+            Car compass = new Car(ECategory.Suv, "Compass", EStatus.DISPONIVEL);
+            Car kicks = new Car(ECategory.Suv, "Kicks", EStatus.DISPONIVEL);
+            Car azera = new Car(ECategory.Sedan, "Azera", EStatus.DISPONIVEL);
+            Car fluence = new Car(ECategory.Sedan, "Fluence", EStatus.DISPONIVEL);
+            Car duster = new Car(ECategory.Suv, "Duster", EStatus.DISPONIVEL);
+            Car creta = new Car(ECategory.Suv, "Creta", EStatus.DISPONIVEL);
+            Car tcross = new Car(ECategory.Suv, "T-Cross", EStatus.INDISPONIVEL);
+            Car hb20 = new Car(ECategory.Hatch, "HB20", EStatus.INDISPONIVEL);
+            Car mustang = new Car(ECategory.Foguete, "Mustang", EStatus.DISPONIVEL);
 
-            var creta = new Car(Enum.ECategory.Suv, "Creta", Enum.EStatus.DISPONIVEL);
-            var tcross = new Car(Enum.ECategory.Suv, "T-Cross", Enum.EStatus.DISPONIVEL);
-            var hb20 = new Car(Enum.ECategory.Hatch, "HB20", Enum.EStatus.INDISPONIVEL);
 
-            this.StockCar = new List<Car> { compass, kicks, azera, creta, tcross, duster, hb20 };
+            this.StockCar = new List<Car> { compass, kicks, azera, fluence, creta, tcross, duster, hb20, mustang };
 
             this.CarRentModelList = new List<CarRentModel>
             {
@@ -25,6 +27,8 @@ namespace CarRent.Model
                 new CarRentModel(2, new Customer(2, "Patata"), kicks, new DateTime(2022, 12, 10), new DateTime(2022, 12, 17)),
                 new CarRentModel(3, new Customer(3, "Bozo"), azera, new DateTime(2022, 12, 14), new DateTime(2022, 12, 21)),
                 new CarRentModel(4, new Customer(4, "It o Palhaço"), duster, new DateTime(2022, 1, 1), new DateTime(2042, 12, 31)),
+                new CarRentModel(5, new Customer(5, "Palhaço do Mc'Donald"), fluence, new DateTime(2022, 1, 10), new DateTime(2022, 1, 14)),
+                new CarRentModel(6, new Customer(6, "Arailson"), mustang, new DateTime(2022, 12, 25), new DateTime(2023, 1, 1)),
             };
         }
 
@@ -51,6 +55,10 @@ namespace CarRent.Model
         {
             foreach (CarRentModel rentItem in this.CarRentModelList)
             {
+                if (car.Status == EStatus.INDISPONIVEL)
+                {
+                    return false;
+                }
                 if (rentItem.Car == car && begin < rentItem.End)
                 {
                     return false;
