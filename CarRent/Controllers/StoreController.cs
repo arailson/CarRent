@@ -11,18 +11,20 @@ namespace CarRent.Controllers
 
         public StoreController()
         {
-          
+
         }
-        
+
         [HttpPost]
         public void AddStore([FromBody] Store store)
         {
+
             DB_STORES.Add(store);
         }
 
         [HttpGet]
         public IEnumerable<Store> RecuperaStore()
         {
+
             return DB_STORES;
         }
     }
