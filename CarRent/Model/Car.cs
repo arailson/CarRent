@@ -1,8 +1,9 @@
 ﻿using CarRent.Enum;
+using CarRent.Interfaces;
 
 namespace CarRent.Model
 {
-    public class Car
+    public class Car : ICar
     {
         public ECategory Category { get; set; }
         public string Name { get; set; }

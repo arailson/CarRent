@@ -1,8 +1,9 @@
-﻿using CarRent.Enum;
+﻿using CarRent.Interfaces;
+using CarRent.Enum;
 using CarRent.Model;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CarRent.Controllers
+namespace ICarRent.Controllers
 {
     [ApiController]
     [Route("[controller]")]
@@ -12,30 +13,30 @@ namespace CarRent.Controllers
 
         
 
-        private List<Car> AmountVehiclesSuv()
+        private List<ICar> AmountVehiclesSuv()
         {
             return this.AmountVehiclesByCategory(ECategory.Suv);
         }
 
-        private List<Car> AmountVehiclesHatch()
+        private List<ICar> AmountVehiclesHatch()
         {
             return this.AmountVehiclesByCategory(ECategory.Hatch);
         }
 
-        private List<Car> AmountVehiclesSedan()
+        private List<ICar> AmountVehiclesSedan()
         {
             return this.AmountVehiclesByCategory(ECategory.Sedan);
         }
-        private List<Car> AmountVehiclesFoguete()
+        private List<ICar> AmountVehiclesFoguete()
         {
             return this.AmountVehiclesByCategory(ECategory.Foguete);
         }
 
-        private List<Car> AmountVehiclesByCategory(ECategory category)
+        private List<ICar> AmountVehiclesByCategory(ECategory category)
         {
-            var carList = this.fleet.AmountVehiclesByCategory(category);
-            List<Car> returnList = new();
-            foreach (var item in carList)
+            var ICarList = this.fleet.AmountVehiclesByCategory(category);
+            List<ICar> returnList = new();
+            foreach (var item in ICarList)
             {
                 if (this.fleet.IsAvailable(item))
                     returnList.Add(item);
@@ -46,35 +47,35 @@ namespace CarRent.Controllers
 
 
         [HttpGet]
-        public IEnumerable<Car> GetCars()
+        public IEnumerable<ICar> GetICars()
         {
             return this.fleet.StockCar;
         }
 
         [HttpGet]
         [Route("suv")]
-        public IEnumerable<Car> GetAvailableSuv()
+        public IEnumerable<ICar> GetAvailableSuv()
         {
             return this.AmountVehiclesSuv();
         }
 
         [HttpGet]
         [Route("sedan")]
-        public IEnumerable<Car> GetAvailableSedan()
+        public IEnumerable<ICar> GetAvailableSedan()
         {
             return this.AmountVehiclesSedan();
         }
 
         [HttpGet]
         [Route("hatch")]
-        public IEnumerable<Car> GetAvailableHatch()
+        public IEnumerable<ICar> GetAvailableHatch()
         {
             return this.AmountVehiclesHatch();
         }
 
         [HttpGet]
         [Route("foguete")]
-        public IEnumerable<Car> GetAvailableFoguete()
+        public IEnumerable<ICar> GetAvailableFoguete()
         {
             return this.AmountVehiclesFoguete();
         }

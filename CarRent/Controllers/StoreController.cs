@@ -1,4 +1,6 @@
-﻿using CarRent.Model;
+﻿using CarRent.Data;
+using CarRent.Model;
+using CarRent.Validator;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarRent.Controllers
@@ -7,25 +9,29 @@ namespace CarRent.Controllers
     [Route("[controller]")]
     public class StoreController : ControllerBase
     {
-        private static List<Store> DB_STORES = new List<Store>();
-
+        private StoreDbSingleton StoreDb { get; set; }
         public StoreController()
         {
-
+            StoreDb = StoreDbSingleton.Instance;
         }
 
         [HttpPost]
-        public void AddStore([FromBody] Store store)
+        public IActionResult AddStore([FromBody] Store store)
         {
-
-            DB_STORES.Add(store);
+            var validator = new StoreValidator().ValidateNome(store.Name).ValidateCnpj(store.Cnpj).ValidateCep(store.Cep);
+            if (!validator.isValid()) 
+            {
+                return StatusCode(400);
+            }
+            StoreDb.DB_STORES.Add(store);
+            return Ok();
         }
 
         [HttpGet]
         public IEnumerable<Store> RecuperaStore()
         {
 
-            return DB_STORES;
+            return StoreDb.DB_STORES;
         }
     }
 }

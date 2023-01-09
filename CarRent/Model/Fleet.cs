@@ -1,25 +1,26 @@
 ﻿using CarRent.Enum;
+using CarRent.Interfaces;
 
 namespace CarRent.Model
 {
     public class Fleet
     {
-        public List<Car> StockCar { get; set; }
+        public List<ICar> StockCar { get; set; }
         public List<CarRentModel> CarRentModelList { get; set; }
         public Fleet()
         {
-            Car compass = new Car(ECategory.Suv, "Compass", EStatus.DISPONIVEL);
-            Car kicks = new Car(ECategory.Suv, "Kicks", EStatus.DISPONIVEL);
-            Car azera = new Car(ECategory.Sedan, "Azera", EStatus.DISPONIVEL);
-            Car fluence = new Car(ECategory.Sedan, "Fluence", EStatus.DISPONIVEL);
-            Car duster = new Car(ECategory.Suv, "Duster", EStatus.DISPONIVEL);
-            Car creta = new Car(ECategory.Suv, "Creta", EStatus.DISPONIVEL);
-            Car tcross = new Car(ECategory.Suv, "T-Cross", EStatus.INDISPONIVEL);
-            Car hb20 = new Car(ECategory.Hatch, "HB20", EStatus.INDISPONIVEL);
-            Car mustang = new Car(ECategory.Foguete, "Mustang", EStatus.DISPONIVEL);
+            ICar compass = new Car(ECategory.Suv, "Compass", EStatus.DISPONIVEL);
+            ICar kicks = new Car(ECategory.Suv, "Kicks", EStatus.DISPONIVEL);
+            ICar azera = new Car(ECategory.Sedan, "Azera", EStatus.DISPONIVEL);
+            ICar fluence = new Car(ECategory.Sedan, "Fluence", EStatus.DISPONIVEL);
+            ICar duster = new Car(ECategory.Suv, "Duster", EStatus.DISPONIVEL);
+            ICar creta = new Car(ECategory.Suv, "Creta", EStatus.DISPONIVEL);
+            ICar tcross = new Car(ECategory.Suv, "T-Cross", EStatus.INDISPONIVEL);
+            ICar hb20 = new Car(ECategory.Hatch, "HB20", EStatus.INDISPONIVEL);
+            ICar mustang = new Car(ECategory.Foguete, "Mustang", EStatus.DISPONIVEL);
 
 
-            this.StockCar = new List<Car> { compass, kicks, azera, fluence, creta, tcross, duster, hb20, mustang };
+            this.StockCar = new List<ICar> { compass, kicks, azera, fluence, creta, tcross, duster, hb20, mustang };
 
             this.CarRentModelList = new List<CarRentModel>
             {
@@ -32,10 +33,10 @@ namespace CarRent.Model
             };
         }
 
-        public List<Car> AmountVehiclesByCategory(ECategory category)
+        public List<ICar> AmountVehiclesByCategory(ECategory category)
         {
-            List<Car> carList = new();
-            foreach (Car vehicle in this.StockCar)
+            List<ICar> carList = new();
+            foreach (ICar vehicle in this.StockCar)
             {
                 if (vehicle.Category == category)
                 {
@@ -46,12 +47,12 @@ namespace CarRent.Model
             return carList;
         }
 
-        public bool IsAvailable(Car car)
+        public bool IsAvailable(ICar car)
         {
             return this.IsAvailable(car, DateTime.Now, DateTime.Now);
         }
 
-        public bool IsAvailable(Car car, DateTime begin, DateTime end)
+        public bool IsAvailable(ICar car, DateTime begin, DateTime end)
         {
             foreach (CarRentModel rentItem in this.CarRentModelList)
             {
